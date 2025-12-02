@@ -1,0 +1,288 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import '../constants/app_constants.dart';
+import '../providers/names_provider.dart';
+import '../providers/audio_provider.dart';
+import '../models/allah_name.dart';
+import 'name_detail_screen.dart';
+import 'audio_player_screen.dart';
+
+class NamesListScreen extends StatefulWidget {
+  final bool practiceMode;
+
+  const NamesListScreen({super.key, this.practiceMode = false});
+
+  @override
+  State<NamesListScreen> createState() => _NamesListScreenState();
+}
+
+class _NamesListScreenState extends State<NamesListScreen> {
+  @override
+  void initState() {
+    super.initState();
+    final namesProvider = context.read<NamesProvider>();
+    final audioProvider = context.read<AudioProvider>();
+
+    if (namesProvider.allNames.isNotEmpty) {
+      audioProvider.setPlaylist(namesProvider.allNames);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final namesProvider = context.watch<NamesProvider>();
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('99 Names of Allah')),
+      body: namesProvider.isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Column(
+              children: [
+                // Search Bar
+                Padding(
+                  padding: const EdgeInsets.all(AppSizes.paddingMD),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search names...',
+                      prefixIcon: const Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(AppSizes.radiusLG),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? AppColors.borderDark
+                              : AppColors.borderLight,
+                        ),
+                      ),
+                      filled: true,
+                      fillColor: Theme.of(context).cardColor,
+                    ),
+                    onChanged: (query) {
+                      namesProvider.searchNames(query);
+                    },
+                  ),
+                ),
+
+                // Names Grid
+                Expanded(
+                  child: namesProvider.filteredNames.isEmpty
+                      ? _buildEmptyState()
+                      : GridView.builder(
+                          padding: const EdgeInsets.all(AppSizes.paddingMD),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: _getCrossAxisCount(context),
+                                crossAxisSpacing: AppSizes.paddingMD,
+                                mainAxisSpacing: AppSizes.paddingMD,
+                                childAspectRatio: 0.75,
+                              ),
+                          itemCount: namesProvider.filteredNames.length,
+                          itemBuilder: (context, index) {
+                            final name = namesProvider.filteredNames[index];
+                            return _NameCard(
+                              name: name,
+                              practiceMode: widget.practiceMode,
+                            );
+                          },
+                        ),
+                ),
+              ],
+            ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const AudioPlayerScreen()),
+          );
+        },
+        icon: const Icon(Icons.play_arrow),
+        label: const Text('Play All'),
+      ),
+    );
+  }
+
+  int _getCrossAxisCount(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    if (width > 900) return 4;
+    if (width > 600) return 3;
+    return 2;
+  }
+
+  Widget _buildEmptyState() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text('🔍', style: TextStyle(fontSize: 64)),
+          const SizedBox(height: AppSizes.paddingLG),
+          Text(
+            'No names found',
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? AppColors.textTertiaryDark
+                  : AppColors.textTertiaryLight,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _NameCard extends StatelessWidget {
+  final AllahName name;
+  final bool practiceMode;
+
+  const _NameCard({required this.name, required this.practiceMode});
+
+  @override
+  Widget build(BuildContext context) {
+    final audioProvider = context.watch<AudioProvider>();
+    final isPlaying =
+        audioProvider.currentName?.id == name.id && audioProvider.isPlaying;
+
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => NameDetailScreen(name: name)),
+          );
+        },
+        child: Stack(
+          children: [
+            // Top accent line
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                height: 4,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [AppColors.gold, AppColors.goldLight],
+                  ),
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(AppSizes.paddingMD),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Number Badge
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Container(
+                      width: 32,
+                      height: 32,
+                      decoration: const BoxDecoration(
+                        color: AppColors.gold,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Text(
+                          '${name.id}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: AppSizes.paddingSM),
+
+                  // Arabic Name
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        name.arabic,
+                        style: GoogleFonts.amiri(
+                          fontSize: 28,
+                          fontWeight: FontWeight.w700,
+                          height: 1.8,
+                        ),
+                        textDirection: TextDirection.rtl,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+
+                  // Transliteration
+                  Text(
+                    name.transliteration,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: AppSizes.paddingXS),
+
+                  // Meaning
+                  if (!practiceMode)
+                    Text(
+                      name.meaningEn,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppColors.gold,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+
+                  const SizedBox(height: AppSizes.paddingSM),
+
+                  // Play Button
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Material(
+                      color: AppColors.gold,
+                      shape: const CircleBorder(),
+                      child: InkWell(
+                        onTap: () async {
+                          final provider = context.read<AudioProvider>();
+                          final namesProvider = context.read<NamesProvider>();
+                          final index = namesProvider.getIndexById(name.id);
+                          if (index != -1) {
+                            await provider.playByIndex(index);
+                          }
+                        },
+                        customBorder: const CircleBorder(),
+                        child: Container(
+                          width: 36,
+                          height: 36,
+                          alignment: Alignment.center,
+                          child: Icon(
+                            isPlaying ? Icons.pause : Icons.play_arrow,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Playing indicator
+            if (isPlaying)
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.gold, width: 2),
+                    borderRadius: BorderRadius.circular(AppSizes.radiusLG),
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}

@@ -1,0 +1,796 @@
+{
+  "names": [
+    {
+      "id": 1,
+      "arabic": "ٱلرَّحْمَـٰنُ",
+      "transliteration": "Ar-Rahman",
+      "meaning_en": "The Most Merciful",
+      "meaning_am": "በጣም ርኅሩኅ",
+      "explanation": "Allah's mercy encompasses all of creation, extending to believers and non-believers alike. His mercy is infinite and all-encompassing."
+    },
+    {
+      "id": 2,
+      "arabic": "ٱلرَّحِيمُ",
+      "transliteration": "Ar-Rahim",
+      "meaning_en": "The Most Compassionate",
+      "meaning_am": "በጣም አዛኝ",
+      "explanation": "Allah shows special compassion to the believers. His mercy is specifically directed towards those who follow His guidance and seek His forgiveness."
+    },
+    {
+      "id": 3,
+      "arabic": "ٱلْمَلِكُ",
+      "transliteration": "Al-Malik",
+      "meaning_en": "The King",
+      "meaning_am": "ንጉሥ",
+      "explanation": "Allah is the absolute sovereign ruler of all creation. His kingdom is eternal, and His authority is supreme over all things."
+    },
+    {
+      "id": 4,
+      "arabic": "ٱلْقُدُّوسُ",
+      "transliteration": "Al-Quddus",
+      "meaning_en": "The Most Holy",
+      "meaning_am": "በጣም ቅዱስ",
+      "explanation": "Allah is pure and perfect, free from all imperfections and defects. He is absolutely sacred and completely holy."
+    },
+    {
+      "id": 5,
+      "arabic": "ٱلسَّلَامُ",
+      "transliteration": "As-Salam",
+      "meaning_en": "The Source of Peace",
+      "meaning_am": "የሰላም ምንጭ",
+      "explanation": "Allah is the source of all peace and safety. He is free from all defects and grants peace to His creation."
+    },
+    {
+      "id": 6,
+      "arabic": "ٱلْمُؤْمِنُ",
+      "transliteration": "Al-Mu'min",
+      "meaning_en": "The Guardian of Faith",
+      "meaning_am": "የእምነት ጠባቂ",
+      "explanation": "Allah grants security and watches over the believers. He protects those who have faith and keeps them safe from harm."
+    },
+    {
+      "id": 7,
+      "arabic": "ٱلْمُهَيْمِنُ",
+      "transliteration": "Al-Muhaymin",
+      "meaning_en": "The Preserver",
+      "meaning_am": "ጠባቂ",
+      "explanation": "Allah is the overseer and protector of all creation. He witnesses all things and guards over His creation with perfect care."
+    },
+    {
+      "id": 8,
+      "arabic": "ٱلْعَزِيزُ",
+      "transliteration": "Al-'Aziz",
+      "meaning_en": "The Almighty",
+      "meaning_am": "ሁሉን የሚችል",
+      "explanation": "Allah is invincible and all-powerful. Nothing can overcome His will, and He is victorious in all matters."
+    },
+    {
+      "id": 9,
+      "arabic": "ٱلْجَبَّارُ",
+      "transliteration": "Al-Jabbar",
+      "meaning_en": "The Compeller",
+      "meaning_am": "አስገዳጅ",
+      "explanation": "Allah's will cannot be resisted. He has absolute power to enforce His will and nothing can oppose Him."
+    },
+    {
+      "id": 10,
+      "arabic": "ٱلْمُتَكَبِّرُ",
+      "transliteration": "Al-Mutakabbir",
+      "meaning_en": "The Supreme",
+      "meaning_am": "ከፍተኛ",
+      "explanation": "Allah is supremely great and majestic. His greatness is beyond comparison and He is exalted above all creation."
+    },
+    {
+      "id": 11,
+      "arabic": "ٱلْخَالِقُ",
+      "transliteration": "Al-Khaliq",
+      "meaning_en": "The Creator",
+      "meaning_am": "ፈጣሪ",
+      "explanation": "Allah creates all things from nothing. He is the originator of all that exists and brings everything into being."
+    },
+    {
+      "id": 12,
+      "arabic": "ٱلْبَارِئُ",
+      "transliteration": "Al-Bari'",
+      "meaning_en": "The Evolver",
+      "meaning_am": "አዳኝ",
+      "explanation": "Allah fashions and shapes His creation perfectly. He brings things into existence according to His perfect plan."
+    },
+    {
+      "id": 13,
+      "arabic": "ٱلْمُصَوِّرُ",
+      "transliteration": "Al-Musawwir",
+      "meaning_en": "The Fashioner",
+      "meaning_am": "ቅርጻቀራጭ",
+      "explanation": "Allah gives everything its unique form and shape. He designs and forms all creation with perfect wisdom."
+    },
+    {
+      "id": 14,
+      "arabic": "ٱلْغَفَّارُ",
+      "transliteration": "Al-Ghaffar",
+      "meaning_en": "The Great Forgiver",
+      "meaning_am": "ታላቁ ይቅርታ ሰጪ",
+      "explanation": "Allah forgives sins repeatedly and abundantly. His forgiveness is limitless for those who sincerely repent."
+    },
+    {
+      "id": 15,
+      "arabic": "ٱلْقَهَّارُ",
+      "transliteration": "Al-Qahhar",
+      "meaning_en": "The Subduer",
+      "meaning_am": "ተቆራናቸ",
+      "explanation": "Allah has complete dominance over all things. Nothing in creation can resist His power or escape His will."
+    },
+    {
+      "id": 16,
+      "arabic": "ٱلْوَهَّابُ",
+      "transliteration": "Al-Wahhab",
+      "meaning_en": "The Bestower",
+      "meaning_am": "ሰጪ",
+      "explanation": "Allah gives endlessly without expectation of return. His gifts are abundant and He bestows blessings upon all creation."
+    },
+    {
+      "id": 17,
+      "arabic": "ٱلرَّزَّاقُ",
+      "transliteration": "Ar-Razzaq",
+      "meaning_en": "The Provider",
+      "meaning_am": "አቅራቢ",
+      "explanation": "Allah provides sustenance to all living creatures. He is the source of all provision and nourishment."
+    },
+    {
+      "id": 18,
+      "arabic": "ٱلْفَتَّاحُ",
+      "transliteration": "Al-Fattah",
+      "meaning_en": "The Opener",
+      "meaning_am": "ከፋቺ",
+      "explanation": "Allah opens the way to success and victory. He grants solutions to problems and opens hearts to guidance."
+    },
+    {
+      "id": 19,
+      "arabic": "ٱلْعَلِيمُ",
+      "transliteration": "Al-'Alim",
+      "meaning_en": "The All-Knowing",
+      "meaning_am": "ሁሉ ያውቃል",
+      "explanation": "Allah has complete and perfect knowledge of all things, past, present, and future. Nothing is hidden from Him."
+    },
+    {
+      "id": 20,
+      "arabic": "ٱلْقَابِضُ",
+      "transliteration": "Al-Qabid",
+      "meaning_en": "The Withholder",
+      "meaning_am": "አቁጣሪ",
+      "explanation": "Allah withholds provision and blessings according to His wisdom. He restrains with purpose and perfect knowledge."
+    },
+    {
+      "id": 21,
+      "arabic": "ٱلْبَاسِطُ",
+      "transliteration": "Al-Basit",
+      "meaning_en": "The Expander",
+      "meaning_am": "ስፋት ሰጪ",
+      "explanation": "Allah expands and increases provision for whom He wills. He grants abundance and opens opportunities."
+    },
+    {
+      "id": 22,
+      "arabic": "ٱلْخَافِضُ",
+      "transliteration": "Al-Khafid",
+      "meaning_en": "The Abaser",
+      "meaning_am": "አዋራጅ",
+      "explanation": "Allah humbles the arrogant and lowers the status of the oppressors. He brings down those who transgress."
+    },
+    {
+      "id": 23,
+      "arabic": "ٱلرَّافِعُ",
+      "transliteration": "Ar-Rafi'",
+      "meaning_en": "The Exalter",
+      "meaning_am": "አስከፋይ",
+      "explanation": "Allah raises the righteous in rank and status. He elevates those who are humble and obedient."
+    },
+    {
+      "id": 24,
+      "arabic": "ٱلْمُعِزُّ",
+      "transliteration": "Al-Mu'izz",
+      "meaning_en": "The Bestower of Honor",
+      "meaning_am": "ክብር ሰጪ",
+      "explanation": "Allah grants honor and dignity to whom He wills. He gives strength and glory to His servants."
+    },
+    {
+      "id": 25,
+      "arabic": "ٱلْمُذِلُّ",
+      "transliteration": "Al-Mudhill",
+      "meaning_en": "The Humiliator",
+      "meaning_am": "አዋራጅ",
+      "explanation": "Allah disgraces those who deserve it through His perfect justice. He removes honor from the undeserving."
+    },
+    {
+      "id": 26,
+      "arabic": "ٱلسَّمِيعُ",
+      "transliteration": "As-Sami'",
+      "meaning_en": "The All-Hearing",
+      "meaning_am": "ሁሉ የሚሰማ",
+      "explanation": "Allah hears all sounds and voices, no matter how faint. He listens to all prayers and responds."
+    },
+    {
+      "id": 27,
+      "arabic": "ٱلْبَصِيرُ",
+      "transliteration": "Al-Basir",
+      "meaning_en": "The All-Seeing",
+      "meaning_am": "ሁሉ የሚያይ",
+      "explanation": "Allah sees all things, both visible and hidden. Nothing escapes His sight, however small or concealed."
+    },
+    {
+      "id": 28,
+      "arabic": "ٱلْحَكَمُ",
+      "transliteration": "Al-Hakam",
+      "meaning_en": "The Judge",
+      "meaning_am": "ፈራጅ",
+      "explanation": "Allah is the ultimate judge between right and wrong. His judgments are always perfect and just."
+    },
+    {
+      "id": 29,
+      "arabic": "ٱلْعَدْلُ",
+      "transliteration": "Al-'Adl",
+      "meaning_en": "The Just",
+      "meaning_am": "ፍትሐዊ",
+      "explanation": "Allah is absolutely just and fair in all His dealings. He never wrongs anyone and His justice is perfect."
+    },
+    {
+      "id": 30,
+      "arabic": "ٱللَّطِيفُ",
+      "transliteration": "Al-Latif",
+      "meaning_en": "The Subtle",
+      "meaning_am": "ረቂቅ",
+      "explanation": "Allah is kind and gentle with His servants. He works in subtle ways and shows kindness in unexpected moments."
+    },
+    {
+      "id": 31,
+      "arabic": "ٱلْخَبِيرُ",
+      "transliteration": "Al-Khabir",
+      "meaning_en": "The All-Aware",
+      "meaning_am": "ሁሉ ያውቃል",
+      "explanation": "Allah is aware of all hidden matters and inner thoughts. He knows the secrets of hearts and the reality of all things."
+    },
+    {
+      "id": 32,
+      "arabic": "ٱلْحَلِيمُ",
+      "transliteration": "Al-Halim",
+      "meaning_en": "The Forbearing",
+      "meaning_am": "ታጋሽ",
+      "explanation": "Allah is patient and does not hasten to punish. He gives time for repentance and shows restraint."
+    },
+    {
+      "id": 33,
+      "arabic": "ٱلْعَظِيمُ",
+      "transliteration": "Al-'Azim",
+      "meaning_en": "The Magnificent",
+      "meaning_am": "ታላቅ",
+      "explanation": "Allah is infinitely great and majestic. His greatness is beyond human comprehension and imagination."
+    },
+    {
+      "id": 34,
+      "arabic": "ٱلْغَفُورُ",
+      "transliteration": "Al-Ghafur",
+      "meaning_en": "The Forgiver",
+      "meaning_am": "ይቅር ባይ",
+      "explanation": "Allah repeatedly forgives those who turn to Him in repentance. His forgiveness covers all sins for the sincere."
+    },
+    {
+      "id": 35,
+      "arabic": "ٱلشَّكُورُ",
+      "transliteration": "Ash-Shakur",
+      "meaning_en": "The Appreciative",
+      "meaning_am": "አድናቂ",
+      "explanation": "Allah appreciates and rewards even the smallest good deeds. He multiplies rewards and acknowledges efforts."
+    },
+    {
+      "id": 36,
+      "arabic": "ٱلْعَلِيُّ",
+      "transliteration": "Al-'Ali",
+      "meaning_en": "The Most High",
+      "meaning_am": "በጣም ከፍተኛ",
+      "explanation": "Allah is exalted above all creation. His status is supreme and nothing is comparable to Him in highness."
+    },
+    {
+      "id": 37,
+      "arabic": "ٱلْكَبِيرُ",
+      "transliteration": "Al-Kabir",
+      "meaning_en": "The Greatest",
+      "meaning_am": "ታላቁ",
+      "explanation": "Allah is greater than everything in existence. His greatness has no limits or bounds."
+    },
+    {
+      "id": 38,
+      "arabic": "ٱلْحَفِيظُ",
+      "transliteration": "Al-Hafiz",
+      "meaning_en": "The Preserver",
+      "meaning_am": "ጠባቂ",
+      "explanation": "Allah protects and preserves all of creation. He guards everything with perfect care and attention."
+    },
+    {
+      "id": 39,
+      "arabic": "ٱلْمُقِيتُ",
+      "transliteration": "Al-Muqit",
+      "meaning_en": "The Sustainer",
+      "meaning_am": "ረዳት",
+      "explanation": "Allah sustains all creation and provides their needs. He has power over all sustenance and nourishment."
+    },
+    {
+      "id": 40,
+      "arabic": "ٱلْحَسِيبُ",
+      "transliteration": "Al-Hasib",
+      "meaning_en": "The Reckoner",
+      "meaning_am": "አካሄዳቸ",
+      "explanation": "Allah takes account of all deeds. He is sufficient as a reckoner and His accounting is perfect."
+    },
+    {
+      "id": 41,
+      "arabic": "ٱلْجَلِيلُ",
+      "transliteration": "Al-Jalil",
+      "meaning_en": "The Majestic",
+      "meaning_am": "ክቡር",
+      "explanation": "Allah is full of majesty and splendor. His magnificence and grandeur are beyond description."
+    },
+    {
+      "id": 42,
+      "arabic": "ٱلْكَرِيمُ",
+      "transliteration": "Al-Karim",
+      "meaning_en": "The Generous",
+      "meaning_am": "ለጋስ",
+      "explanation": "Allah is extremely generous and gives abundantly. His generosity knows no bounds and He gives without measure."
+    },
+    {
+      "id": 43,
+      "arabic": "ٱلرَّقِيبُ",
+      "transliteration": "Ar-Raqib",
+      "meaning_en": "The Watchful",
+      "meaning_am": "ጠባቂ",
+      "explanation": "Allah watches over all creation constantly. Nothing happens without His knowledge and observation."
+    },
+    {
+      "id": 44,
+      "arabic": "ٱلْمُجِيبُ",
+      "transliteration": "Al-Mujib",
+      "meaning_en": "The Responsive",
+      "meaning_am": "ምላሽ ሰጪ",
+      "explanation": "Allah responds to the prayers and calls of those who call upon Him. He answers supplications in His perfect wisdom."
+    },
+    {
+      "id": 45,
+      "arabic": "ٱلْوَاسِعُ",
+      "transliteration": "Al-Wasi'",
+      "meaning_en": "The All-Encompassing",
+      "meaning_am": "ሁሉን ያካተቸ",
+      "explanation": "Allah's mercy, knowledge, and power encompass everything. His vastness has no limits."
+    },
+    {
+      "id": 46,
+      "arabic": "ٱلْحَكِيمُ",
+      "transliteration": "Al-Hakim",
+      "meaning_en": "The Wise",
+      "meaning_am": "ጥበበኛ",
+      "explanation": "Allah is infinitely wise in all His decisions and actions. Everything He does has perfect purpose and wisdom."
+    },
+    {
+      "id": 47,
+      "arabic": "ٱلْوَدُودُ",
+      "transliteration": "Al-Wadud",
+      "meaning_en": "The Loving",
+      "meaning_am": "ፍቅረኛ",
+      "explanation": "Allah loves His righteous servants and they love Him. His love is perfect and bestows tranquility."
+    },
+    {
+      "id": 48,
+      "arabic": "ٱلْمَجِيدُ",
+      "transliteration": "Al-Majid",
+      "meaning_en": "The Glorious",
+      "meaning_am": "ክቡር",
+      "explanation": "Allah is full of glory and honor. His glory is supreme and His honor is perfect."
+    },
+    {
+      "id": 49,
+      "arabic": "ٱلْبَاعِثُ",
+      "transliteration": "Al-Ba'ith",
+      "meaning_en": "The Resurrector",
+      "meaning_am": "አስነሳ",
+      "explanation": "Allah will resurrect all people on the Day of Judgment. He brings the dead back to life for accountability."
+    },
+    {
+      "id": 50,
+      "arabic": "ٱلشَّهِيدُ",
+      "transliteration": "Ash-Shahid",
+      "meaning_en": "The Witness",
+      "meaning_am": "ምስክር",
+      "explanation": "Allah witnesses all things and is present everywhere. Nothing is hidden from His witness."
+    },
+    {
+      "id": 51,
+      "arabic": "ٱلْحَقُّ",
+      "transliteration": "Al-Haqq",
+      "meaning_en": "The Truth",
+      "meaning_am": "እውነት",
+      "explanation": "Allah is the ultimate truth and reality. Everything else is temporary, but He is the eternal truth."
+    },
+    {
+      "id": 52,
+      "arabic": "ٱلْوَكِيلُ",
+      "transliteration": "Al-Wakil",
+      "meaning_en": "The Trustee",
+      "meaning_am": "እምነተኛ",
+      "explanation": "Allah is the ultimate trustee and guardian. Those who rely on Him will find Him sufficient."
+    },
+    {
+      "id": 53,
+      "arabic": "ٱلْقَوِيُّ",
+      "transliteration": "Al-Qawi",
+      "meaning_en": "The Strong",
+      "meaning_am": "ጠንካራ",
+      "explanation": "Allah possesses perfect strength and power. His strength never weakens or diminishes."
+    },
+    {
+      "id": 54,
+      "arabic": "ٱلْمَتِينُ",
+      "transliteration": "Al-Matin",
+      "meaning_en": "The Firm",
+      "meaning_am": "ጠንካራ",
+      "explanation": "Allah is firm and steadfast in His power. His strength is unshakeable and constant."
+    },
+    {
+      "id": 55,
+      "arabic": "ٱلْوَلِيُّ",
+      "transliteration": "Al-Wali",
+      "meaning_en": "The Protector",
+      "meaning_am": "ጠባቂ",
+      "explanation": "Allah is the guardian and protector of the believers. He supports and aids those who follow Him."
+    },
+    {
+      "id": 56,
+      "arabic": "ٱلْحَمِيدُ",
+      "transliteration": "Al-Hamid",
+      "meaning_en": "The Praiseworthy",
+      "meaning_am": "የሚመሰገነ",
+      "explanation": "Allah is worthy of all praise. Every attribute of His is perfect and deserving of praise."
+    },
+    {
+      "id": 57,
+      "arabic": "ٱلْمُحْصِي",
+      "transliteration": "Al-Muhsi",
+      "meaning_en": "The Accountant",
+      "meaning_am": "ሂሳብ ያዘጋጀ",
+      "explanation": "Allah keeps count of everything. He has enumerated all things and nothing escapes His reckoning."
+    },
+    {
+      "id": 58,
+      "arabic": "ٱلْمُبْدِئُ",
+      "transliteration": "Al-Mubdi",
+      "meaning_en": "The Originator",
+      "meaning_am": "አንቀሳቃሽ",
+      "explanation": "Allah originates creation without precedent. He begins all things and creates from nothing."
+    },
+    {
+      "id": 59,
+      "arabic": "ٱلْمُعِيدُ",
+      "transliteration": "Al-Mu'id",
+      "meaning_en": "The Restorer",
+      "meaning_am": "ተመላሽ",
+      "explanation": "Allah will restore and recreate all things. He brings back to life what has died."
+    },
+    {
+      "id": 60,
+      "arabic": "ٱلْمُحْيِي",
+      "transliteration": "Al-Muhyi",
+      "meaning_en": "The Giver of Life",
+      "meaning_am": "ሕይወት ሰጪ",
+      "explanation": "Allah gives life to all living things. He is the source of all life and vitality."
+    },
+    {
+      "id": 61,
+      "arabic": "ٱلْمُمِيتُ",
+      "transliteration": "Al-Mumit",
+      "meaning_en": "The Taker of Life",
+      "meaning_am": "ሞት ሰጪ",
+      "explanation": "Allah takes life when He wills. Death comes only by His command and at His appointed time."
+    },
+    {
+      "id": 62,
+      "arabic": "ٱلْحَيُّ",
+      "transliteration": "Al-Hayy",
+      "meaning_en": "The Ever-Living",
+      "meaning_am": "ዘላለማዊ ሕያው",
+      "explanation": "Allah is eternally alive and never dies. His life has no beginning and no end."
+    },
+    {
+      "id": 63,
+      "arabic": "ٱلْقَيُّومُ",
+      "transliteration": "Al-Qayyum",
+      "meaning_en": "The Self-Sustaining",
+      "meaning_am": "ራሱን የሚደግፍ",
+      "explanation": "Allah sustains Himself and all creation. He needs nothing and everything depends on Him."
+    },
+    {
+      "id": 64,
+      "arabic": "ٱلْوَاجِدُ",
+      "transliteration": "Al-Wajid",
+      "meaning_en": "The Finder",
+      "meaning_am": "ፈላጊ",
+      "explanation": "Allah finds and knows all things. Nothing is lost or hidden from Him."
+    },
+    {
+      "id": 65,
+      "arabic": "ٱلْمَاجِدُ",
+      "transliteration": "Al-Majid",
+      "meaning_en": "The Noble",
+      "meaning_am": "ክቡር",
+      "explanation": "Allah is noble and illustrious. His nobility is perfect and His honor is absolute."
+    },
+    {
+      "id": 66,
+      "arabic": "ٱلْوَاحِدُ",
+      "transliteration": "Al-Wahid",
+      "meaning_en": "The Unique",
+      "meaning_am": "ልዩ",
+      "explanation": "Allah is absolutely one and unique. There is nothing like Him in any way."
+    },
+    {
+      "id": 67,
+      "arabic": "ٱلصَّمَدُ",
+      "transliteration": "As-Samad",
+      "meaning_en": "The Eternal Refuge",
+      "meaning_am": "ዘላለማዊ መሸሸጊያ",
+      "explanation": "Allah is the eternal refuge whom all creation depends upon. He needs nothing while everything needs Him."
+    },
+    {
+      "id": 68,
+      "arabic": "ٱلْقَادِرُ",
+      "transliteration": "Al-Qadir",
+      "meaning_en": "The Capable",
+      "meaning_am": "ችሎታ ያለው",
+      "explanation": "Allah has power over all things. He is capable of doing whatever He wills."
+    },
+    {
+      "id": 69,
+      "arabic": "ٱلْمُقْتَدِرُ",
+      "transliteration": "Al-Muqtadir",
+      "meaning_en": "The Omnipotent",
+      "meaning_am": "ሁሉን የሚችል",
+      "explanation": "Allah has complete and absolute power. His ability is perfect and without limitation."
+    },
+    {
+      "id": 70,
+      "arabic": "ٱلْمُقَدِّمُ",
+      "transliteration": "Al-Muqaddim",
+      "meaning_en": "The Expediter",
+      "meaning_am": "አቅራቢ",
+      "explanation": "Allah brings forward what He wills. He advances things according to His wisdom."
+    },
+    {
+      "id": 71,
+      "arabic": "ٱلْمُؤَخِّرُ",
+      "transliteration": "Al-Mu'akhkhir",
+      "meaning_en": "The Delayer",
+      "meaning_am": "ዘግዬ",
+      "explanation": "Allah delays what He wills. He postpones things according to His perfect timing and wisdom."
+    },
+    {
+      "id": 72,
+      "arabic": "ٱلْأَوَّلُ",
+      "transliteration": "Al-Awwal",
+      "meaning_en": "The First",
+      "meaning_am": "መጀመሪያ",
+      "explanation": "Allah is the First with no beginning. He existed before all creation and time."
+    },
+    {
+      "id": 73,
+      "arabic": "ٱلْآخِرُ",
+      "transliteration": "Al-Akhir",
+      "meaning_en": "The Last",
+      "meaning_am": "መጨረሻ",
+      "explanation": "Allah is the Last with no end. He will remain after all creation has perished."
+    },
+    {
+      "id": 74,
+      "arabic": "ٱلظَّاهِرُ",
+      "transliteration": "Az-Zahir",
+      "meaning_en": "The Manifest",
+      "meaning_am": "ግልጽ",
+      "explanation": "Allah is evident through His signs and creation. His existence is manifest in all things."
+    },
+    {
+      "id": 75,
+      "arabic": "ٱلْبَاطِنُ",
+      "transliteration": "Al-Batin",
+      "meaning_en": "The Hidden",
+      "meaning_am": "የተደበቀ",
+      "explanation": "Allah is hidden from our senses and sight. His essence cannot be comprehended by creation."
+    },
+    {
+      "id": 76,
+      "arabic": "ٱلْوَالِي",
+      "transliteration": "Al-Wali",
+      "meaning_en": "The Governor",
+      "meaning_am": "ገዥ",
+      "explanation": "Allah governs all affairs of creation. He alone has true authority and control."
+    },
+    {
+      "id": 77,
+      "arabic": "ٱلْمُتَعَالِي",
+      "transliteration": "Al-Muta'ali",
+      "meaning_en": "The Most Exalted",
+      "meaning_am": "በጣም ከፍ ያለ",
+      "explanation": "Allah is exalted far above all creation. His status is beyond all comparison and imagination."
+    },
+    {
+      "id": 78,
+      "arabic": "ٱلْبَرُّ",
+      "transliteration": "Al-Barr",
+      "meaning_en": "The Source of Goodness",
+      "meaning_am": "የመልካም ምንጭ",
+      "explanation": "Allah is the source of all goodness and kindness. His benevolence encompasses all creation."
+    },
+    {
+      "id": 79,
+      "arabic": "ٱلتَّوَّابُ",
+      "transliteration": "At-Tawwab",
+      "meaning_en": "The Acceptor of Repentance",
+      "meaning_am": "ንስሐ ተቀባይ",
+      "explanation": "Allah accepts repentance repeatedly. He turns to those who turn to Him in sincere repentance."
+    },
+    {
+      "id": 80,
+      "arabic": "ٱلْمُنْتَقِمُ",
+      "transliteration": "Al-Muntaqim",
+      "meaning_en": "The Avenger",
+      "meaning_am": "ተበቃይ",
+      "explanation": "Allah takes just vengeance on the oppressors. He punishes those who persist in wrongdoing."
+    },
+    {
+      "id": 81,
+      "arabic": "ٱلْعَفُوُّ",
+      "transliteration": "Al-'Afuww",
+      "meaning_en": "The Pardoner",
+      "meaning_am": "ይቅር ባይ",
+      "explanation": "Allah pardons and erases sins. He forgives completely and removes the consequences of wrongdoing."
+    },
+    {
+      "id": 82,
+      "arabic": "ٱلرَّؤُوفُ",
+      "transliteration": "Ar-Ra'uf",
+      "meaning_en": "The Kind",
+      "meaning_am": "ደግ",
+      "explanation": "Allah is extremely kind and compassionate. His kindness is gentle and His mercy is tender."
+    },
+    {
+      "id": 83,
+      "arabic": "مَالِكُ ٱلْمُلْكِ",
+      "transliteration": "Malik-ul-Mulk",
+      "meaning_en": "Master of the Kingdom",
+      "meaning_am": "የመንግስት ጌታ",
+      "explanation": "Allah owns and controls all kingdoms and sovereignty. All power and authority belong to Him alone."
+    },
+    {
+      "id": 84,
+      "arabic": "ذُو ٱلْجَلَالِ وَٱلْإِكْرَامِ",
+      "transliteration": "Dhul-Jalali wal-Ikram",
+      "meaning_en": "Lord of Majesty and Bounty",
+      "meaning_am": "የክብር እና ጸጋ ጌታ",
+      "explanation": "Allah possesses perfect majesty and generosity. He deserves utmost reverence and gives abundant blessings."
+    },
+    {
+      "id": 85,
+      "arabic": "ٱلْمُقْسِطُ",
+      "transliteration": "Al-Muqsit",
+      "meaning_en": "The Equitable",
+      "meaning_am": "ፍትሐዊ",
+      "explanation": "Allah is perfectly fair and just. He establishes justice and equity in all matters."
+    },
+    {
+      "id": 86,
+      "arabic": "ٱلْجَامِعُ",
+      "transliteration": "Al-Jami'",
+      "meaning_en": "The Gatherer",
+      "meaning_am": "ሰብሳቢ",
+      "explanation": "Allah will gather all people on the Day of Judgment. He brings together what is scattered."
+    },
+    {
+      "id": 87,
+      "arabic": "ٱلْغَنِيُّ",
+      "transliteration": "Al-Ghani",
+      "meaning_en": "The Self-Sufficient",
+      "meaning_am": "ራሱን የሚያሟላ",
+      "explanation": "Allah is completely independent and needs nothing. All creation depends on Him while He depends on none."
+    },
+    {
+      "id": 88,
+      "arabic": "ٱلْمُغْنِي",
+      "transliteration": "Al-Mughni",
+      "meaning_en": "The Enricher",
+      "meaning_am": "ሀብታም አድርጎ",
+      "explanation": "Allah enriches whom He wills. He grants wealth and sufficiency to His servants."
+    },
+    {
+      "id": 89,
+      "arabic": "ٱلْمَانِعُ",
+      "transliteration": "Al-Mani'",
+      "meaning_en": "The Preventer",
+      "meaning_am": "ከላይ",
+      "explanation": "Allah prevents harm from reaching His servants. He withholds according to His wisdom."
+    },
+    {
+      "id": 90,
+      "arabic": "ٱلضَّارُّ",
+      "transliteration": "Ad-Darr",
+      "meaning_en": "The Distresser",
+      "meaning_am": "ስቃይ ሰጪ",
+      "explanation": "Allah can cause distress and hardship when decreed. All harm comes only by His permission."
+    },
+    {
+      "id": 91,
+      "arabic": "ٱلنَّافِعُ",
+      "transliteration": "An-Nafi'",
+      "meaning_en": "The Benefactor",
+      "meaning_am": "ተጠቃሚ አድርጎ",
+      "explanation": "Allah brings benefit to whom He wills. All good and advantage comes from Him."
+    },
+    {
+      "id": 92,
+      "arabic": "ٱلنُّورُ",
+      "transliteration": "An-Nur",
+      "meaning_en": "The Light",
+      "meaning_am": "ብርሃን",
+      "explanation": "Allah is the light of the heavens and earth. He guides and illuminates hearts and minds."
+    },
+    {
+      "id": 93,
+      "arabic": "ٱلْهَادِي",
+      "transliteration": "Al-Hadi",
+      "meaning_en": "The Guide",
+      "meaning_am": "መመርያ",
+      "explanation": "Allah guides to the right path. He shows the way to truth and righteousness."
+    },
+    {
+      "id": 94,
+      "arabic": "ٱلْبَدِيعُ",
+      "transliteration": "Al-Badi'",
+      "meaning_en": "The Incomparable",
+      "meaning_am": "የማይነጻጸር",
+      "explanation": "Allah creates in unprecedented ways. His creation is unique and without comparison."
+    },
+    {
+      "id": 95,
+      "arabic": "ٱلْبَاقِي",
+      "transliteration": "Al-Baqi",
+      "meaning_en": "The Everlasting",
+      "meaning_am": "ዘላለማዊ",
+      "explanation": "Allah is eternal and everlasting. He remains forever while everything else perishes."
+    },
+    {
+      "id": 96,
+      "arabic": "ٱلْوَارِثُ",
+      "transliteration": "Al-Warith",
+      "meaning_en": "The Inheritor",
+      "meaning_am": "ወራሽ",
+      "explanation": "Allah will inherit all that exists. Everything returns to Him after creation perishes."
+    },
+    {
+      "id": 97,
+      "arabic": "ٱلرَّشِيدُ",
+      "transliteration": "Ar-Rashid",
+      "meaning_en": "The Guide to the Right Path",
+      "meaning_am": "ወደ ትክክለኛው መንገድ መመሪያ",
+      "explanation": "Allah guides with perfect wisdom. His guidance is always right and leads to righteousness."
+    },
+    {
+      "id": 98,
+      "arabic": "ٱلصَّبُورُ",
+      "transliteration": "As-Sabur",
+      "meaning_en": "The Patient",
+      "meaning_am": "ታጋሽ",
+      "explanation": "Allah is supremely patient. He does not hasten to punish and gives time for correction."
+    },
+    {
+      "id": 99,
+      "arabic": "ٱلْأَحَدُ",
+      "transliteration": "Al-Ahad",
+      "meaning_en": "The One",
+      "meaning_am": "አንድ",
+      "explanation": "Allah is the absolute One, indivisible and unique. He is one in His essence, attributes, and actions."
+    }
+  ]
+}
