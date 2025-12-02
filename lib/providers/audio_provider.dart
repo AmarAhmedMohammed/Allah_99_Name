@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -6,6 +7,7 @@ import '../models/allah_name.dart';
 class AudioProvider with ChangeNotifier {
   final AudioPlayer _audioPlayer = AudioPlayer();
   final FlutterTts _flutterTts = FlutterTts();
+  Timer? _nextTrackTimer;
 
   List<AllahName> _playlist = [];
   int _currentIndex = 0;
@@ -45,6 +47,7 @@ class AudioProvider with ChangeNotifier {
   }
 
   Future<void> playByIndex(int index) async {
+    _nextTrackTimer?.cancel();
     if (index < 0 || index >= _playlist.length) return;
 
     _currentIndex = index;
@@ -80,6 +83,7 @@ class AudioProvider with ChangeNotifier {
   }
 
   Future<void> pause() async {
+    _nextTrackTimer?.cancel();
     await _audioPlayer.pause();
     await _flutterTts.stop();
     _isPlaying = false;
@@ -87,6 +91,7 @@ class AudioProvider with ChangeNotifier {
   }
 
   Future<void> stop() async {
+    _nextTrackTimer?.cancel();
     await _audioPlayer.stop();
     await _flutterTts.stop();
     _isPlaying = false;
@@ -121,15 +126,21 @@ class AudioProvider with ChangeNotifier {
 
   void _onAudioComplete() {
     _isPlaying = false;
+    notifyListeners();
+
     if (_autoPlay && _currentIndex < _playlist.length - 1) {
-      playByIndex(_currentIndex + 1);
-    } else {
-      notifyListeners();
+      _nextTrackTimer?.cancel();
+      _nextTrackTimer = Timer(const Duration(seconds: 3), () {
+        if (_autoPlay) {
+          playByIndex(_currentIndex + 1);
+        }
+      });
     }
   }
 
   @override
   void dispose() {
+    _nextTrackTimer?.cancel();
     _audioPlayer.dispose();
     _flutterTts.stop();
     super.dispose();
