@@ -25,7 +25,9 @@ class AllahName {
       meaningEn: json['meaning_en'] as String,
       meaningAm: json['meaning_am'] as String? ?? '',
       explanation: json['explanation'] as String,
-      audioUrl: json['audio_url'] as String?,
+      audioUrl:
+          json['audio_url'] as String? ??
+          'https://raw.githubusercontent.com/soachishti/Asma-ul-Husna/master/audio/${json['id']}.mp3',
     );
   }
 
