@@ -6,6 +6,7 @@ import '../providers/theme_provider.dart';
 import 'names_list_screen.dart';
 import 'audio_player_screen.dart';
 import 'practice_screen.dart';
+import 'tasbih_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -146,10 +147,10 @@ class HomeScreen extends StatelessWidget {
                         icon: '📿',
                         title: 'Tasbih',
                         onTap: () {
-                          // TODO: Navigate to Tasbih screen
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Tasbih counter coming soon! 📿'),
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const TasbihScreen(),
                             ),
                           );
                         },
