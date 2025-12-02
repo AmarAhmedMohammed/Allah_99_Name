@@ -5,6 +5,7 @@ import '../constants/app_constants.dart';
 import '../providers/theme_provider.dart';
 import 'names_list_screen.dart';
 import 'audio_player_screen.dart';
+import 'practice_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -133,8 +134,7 @@ class HomeScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) =>
-                                  const NamesListScreen(practiceMode: true),
+                              builder: (_) => const PracticeScreen(),
                             ),
                           );
                         },

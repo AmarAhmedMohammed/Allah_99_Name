@@ -9,9 +9,7 @@ import 'name_detail_screen.dart';
 import 'audio_player_screen.dart';
 
 class NamesListScreen extends StatefulWidget {
-  final bool practiceMode;
-
-  const NamesListScreen({super.key, this.practiceMode = false});
+  const NamesListScreen({super.key});
 
   @override
   State<NamesListScreen> createState() => _NamesListScreenState();
@@ -79,10 +77,7 @@ class _NamesListScreenState extends State<NamesListScreen> {
                           itemCount: namesProvider.filteredNames.length,
                           itemBuilder: (context, index) {
                             final name = namesProvider.filteredNames[index];
-                            return _NameCard(
-                              name: name,
-                              practiceMode: widget.practiceMode,
-                            );
+                            return _NameCard(name: name);
                           },
                         ),
                 ),
@@ -131,9 +126,7 @@ class _NamesListScreenState extends State<NamesListScreen> {
 
 class _NameCard extends StatelessWidget {
   final AllahName name;
-  final bool practiceMode;
-
-  const _NameCard({required this.name, required this.practiceMode});
+  const _NameCard({required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -223,17 +216,16 @@ class _NameCard extends StatelessWidget {
                   const SizedBox(height: AppSizes.paddingXS),
 
                   // Meaning
-                  if (!practiceMode)
-                    Text(
-                      name.meaningEn,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: AppColors.gold,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                  Text(
+                    name.meaningEn,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: AppColors.gold,
+                      fontWeight: FontWeight.w500,
                     ),
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
 
                   const SizedBox(height: AppSizes.paddingSM),
 
