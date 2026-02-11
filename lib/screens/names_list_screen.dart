@@ -239,9 +239,24 @@ class _NameCard extends StatelessWidget {
                         onTap: () async {
                           final provider = context.read<AudioProvider>();
                           final namesProvider = context.read<NamesProvider>();
+
+                          // Ensure playlist is set if empty but names are available
+                          if (provider.totalCount == 0 &&
+                              namesProvider.allNames.isNotEmpty) {
+                            provider.setPlaylist(namesProvider.allNames);
+                          }
+
                           final index = namesProvider.getIndexById(name.id);
                           if (index != -1) {
-                            await provider.playByIndex(index);
+                            if (provider.currentName?.id == name.id &&
+                                provider.isPlaying) {
+                              await provider.pause();
+                            } else if (provider.currentName?.id == name.id &&
+                                !provider.isPlaying) {
+                              await provider.play();
+                            } else {
+                              await provider.playByIndex(index);
+                            }
                           }
                         },
                         customBorder: const CircleBorder(),
@@ -249,11 +264,24 @@ class _NameCard extends StatelessWidget {
                           width: 36,
                           height: 36,
                           alignment: Alignment.center,
-                          child: Icon(
-                            isPlaying ? Icons.pause : Icons.play_arrow,
-                            color: Colors.white,
-                            size: 20,
-                          ),
+                          child:
+                              audioProvider.isLoading &&
+                                  audioProvider.currentName?.id == name.id
+                              ? const SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.white,
+                                    ),
+                                  ),
+                                )
+                              : Icon(
+                                  isPlaying ? Icons.pause : Icons.play_arrow,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
                         ),
                       ),
                     ),

@@ -39,6 +39,8 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen>
   @override
   void dispose() {
     _animationController.dispose();
+    // Stop audio when leaving this screen
+    context.read<AudioProvider>().stop();
     super.dispose();
   }
 
@@ -82,7 +84,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen>
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.gold.withOpacity(0.5),
+                            color: AppColors.gold.withValues(alpha: 0.5),
                             blurRadius: 32,
                             spreadRadius: audioProvider.isPlaying ? 8 : 4,
                           ),
@@ -95,7 +97,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen>
                             fontSize: 80,
                             shadows: [
                               Shadow(
-                                color: Colors.black.withOpacity(0.2),
+                                color: Colors.black.withValues(alpha: 0.2),
                                 blurRadius: 8,
                               ),
                             ],

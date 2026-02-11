@@ -130,7 +130,7 @@ class HomeScreen extends StatelessWidget {
                     Expanded(
                       child: _FeatureCard(
                         icon: '📚',
-                        title: 'Practice',
+                        title: 'Questions',
                         onTap: () {
                           Navigator.push(
                             context,

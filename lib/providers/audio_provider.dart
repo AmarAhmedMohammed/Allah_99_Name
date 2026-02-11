@@ -6,6 +6,7 @@ import '../models/allah_name.dart';
 
 class AudioProvider with ChangeNotifier {
   final AudioPlayer _audioPlayer = AudioPlayer();
+  final AudioPlayer _preloadPlayer = AudioPlayer(); // For preloading next track
   final FlutterTts _flutterTts = FlutterTts();
   Timer? _nextTrackTimer;
 
@@ -13,7 +14,7 @@ class AudioProvider with ChangeNotifier {
   int _currentIndex = 0;
   bool _isPlaying = false;
   bool _isLoading = false;
-  bool _autoPlay = true;
+  final bool _autoPlay = true;
 
   AllahName? get currentName =>
       _currentIndex < _playlist.length ? _playlist[_currentIndex] : null;
@@ -24,6 +25,14 @@ class AudioProvider with ChangeNotifier {
 
   AudioProvider() {
     _initializeTts();
+    _initializeAudioPlayer();
+  }
+
+  void _initializeAudioPlayer() {
+    // Set audio player to low latency mode for faster playback
+    _audioPlayer.setReleaseMode(ReleaseMode.stop);
+    _audioPlayer.setPlayerMode(PlayerMode.lowLatency);
+
     _audioPlayer.onPlayerComplete.listen((_) {
       _onAudioComplete();
     });
@@ -44,6 +53,32 @@ class AudioProvider with ChangeNotifier {
     _playlist = names;
     _currentIndex = 0;
     notifyListeners();
+
+    // Preload first audio for instant playback
+    if (_playlist.isNotEmpty) {
+      _preloadAudio(0);
+    }
+  }
+
+  /// Preload audio for instant playback
+  Future<void> _preloadAudio(int index) async {
+    if (index < 0 || index >= _playlist.length) return;
+
+    final name = _playlist[index];
+    if (!name.hasAudio) return;
+
+    try {
+      final url = name.audioUrl!;
+      if (url.startsWith('assets/')) {
+        final assetPath = url.replaceFirst('assets/', '');
+        await _preloadPlayer.setSource(AssetSource(assetPath));
+      } else {
+        await _preloadPlayer.setSource(UrlSource(url));
+      }
+      debugPrint('✅ Preloaded audio for index $index');
+    } catch (e) {
+      debugPrint('⚠️ Failed to preload audio: $e');
+    }
   }
 
   Future<void> playByIndex(int index) async {
@@ -57,23 +92,70 @@ class AudioProvider with ChangeNotifier {
     final name = _playlist[index];
 
     try {
-      // Try playing audio file if URL exists
-      if (name.audioUrl != null && name.audioUrl!.isNotEmpty) {
-        await _audioPlayer.play(UrlSource(name.audioUrl!));
-        _isPlaying = true;
-      } else {
-        // Use Text-to-Speech for Arabic
+      // Try playing beautiful recitation from multiple sources
+      bool audioPlayed = false;
+
+      if (name.hasAudio) {
+        // Try primary audio URL with immediate playback
+        audioPlayed = await _tryPlayAudioFast(name.audioUrl!);
+
+        // If primary fails, try alternative URLs
+        if (!audioPlayed) {
+          final alternativeUrls = name.getAlternativeAudioUrls();
+          for (final url in alternativeUrls) {
+            audioPlayed = await _tryPlayAudioFast(url);
+            if (audioPlayed) break;
+          }
+        }
+      }
+
+      // Fallback to Text-to-Speech if all audio sources fail
+      if (!audioPlayed) {
         await _flutterTts.speak(name.arabic);
         _isPlaying = true;
       }
+
+      // Preload next track for instant playback
+      if (_currentIndex < _playlist.length - 1) {
+        _preloadAudio(_currentIndex + 1);
+      }
     } catch (e) {
-      print('Error playing audio: $e');
-      // Fallback to TTS
+      debugPrint('Error playing audio: $e');
+      // Final fallback to TTS
       await _flutterTts.speak(name.arabic);
       _isPlaying = true;
     } finally {
       _isLoading = false;
       notifyListeners();
+    }
+  }
+
+  /// Try to play audio with optimized fast playback
+  Future<bool> _tryPlayAudioFast(String url) async {
+    try {
+      debugPrint('🎵 Fast play: $url');
+
+      // Check if it's a local asset or remote URL
+      if (url.startsWith('assets/')) {
+        // Play from local asset with low latency
+        final assetPath = url.replaceFirst('assets/', '');
+        debugPrint('📁 Loading local asset: $assetPath');
+
+        // Set source and play immediately
+        await _audioPlayer.play(AssetSource(assetPath));
+      } else {
+        // Play from remote URL
+        debugPrint('🌐 Loading remote URL: $url');
+        await _audioPlayer.play(UrlSource(url));
+      }
+
+      _isPlaying = true;
+      debugPrint('✅ Audio playing successfully');
+      return true;
+    } catch (e) {
+      debugPrint('❌ Failed to play audio from: $url');
+      debugPrint('❌ Error: $e');
+      return false;
     }
   }
 
@@ -142,6 +224,7 @@ class AudioProvider with ChangeNotifier {
   void dispose() {
     _nextTrackTimer?.cancel();
     _audioPlayer.dispose();
+    _preloadPlayer.dispose();
     _flutterTts.stop();
     super.dispose();
   }

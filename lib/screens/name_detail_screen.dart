@@ -6,20 +6,35 @@ import '../models/allah_name.dart';
 import '../providers/names_provider.dart';
 import '../providers/audio_provider.dart';
 
-class NameDetailScreen extends StatelessWidget {
+class NameDetailScreen extends StatefulWidget {
   final AllahName name;
 
   const NameDetailScreen({super.key, required this.name});
+
+  @override
+  State<NameDetailScreen> createState() => _NameDetailScreenState();
+}
+
+class _NameDetailScreenState extends State<NameDetailScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // Stop any playing audio when entering detail screen
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<AudioProvider>().stop();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final namesProvider = context.read<NamesProvider>();
     final audioProvider = context.watch<AudioProvider>();
     final isPlaying =
-        audioProvider.currentName?.id == name.id && audioProvider.isPlaying;
+        audioProvider.currentName?.id == widget.name.id &&
+        audioProvider.isPlaying;
 
     return Scaffold(
-      appBar: AppBar(title: Text(name.transliteration)),
+      appBar: AppBar(title: Text(widget.name.transliteration)),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(AppSizes.paddingXL),
@@ -27,7 +42,7 @@ class NameDetailScreen extends StatelessWidget {
             children: [
               // Arabic Name
               Text(
-                name.arabic,
+                widget.name.arabic,
                 style: GoogleFonts.amiri(
                   fontSize: 56,
                   fontWeight: FontWeight.w700,
@@ -40,7 +55,7 @@ class NameDetailScreen extends StatelessWidget {
 
               // Transliteration
               Text(
-                name.transliteration,
+                widget.name.transliteration,
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
@@ -50,7 +65,7 @@ class NameDetailScreen extends StatelessWidget {
 
               // English Meaning
               Text(
-                name.meaningEn,
+                widget.name.meaningEn,
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   color: AppColors.gold,
                   fontWeight: FontWeight.w500,
@@ -60,9 +75,9 @@ class NameDetailScreen extends StatelessWidget {
               const SizedBox(height: AppSizes.paddingSM),
 
               // Amharic Meaning
-              if (name.meaningAm.isNotEmpty)
+              if (widget.name.meaningAm.isNotEmpty)
                 Text(
-                  name.meaningAm,
+                  widget.name.meaningAm,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: Theme.of(context).brightness == Brightness.dark
                         ? AppColors.textSecondaryDark
@@ -83,7 +98,7 @@ class NameDetailScreen extends StatelessWidget {
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.gold.withOpacity(0.3),
+                      color: AppColors.gold.withValues(alpha: 0.3),
                       blurRadius: 16,
                       spreadRadius: 4,
                     ),
@@ -93,7 +108,7 @@ class NameDetailScreen extends StatelessWidget {
                   color: Colors.transparent,
                   child: InkWell(
                     onTap: () async {
-                      final index = namesProvider.getIndexById(name.id);
+                      final index = namesProvider.getIndexById(widget.name.id);
                       if (index != -1) {
                         if (isPlaying) {
                           await audioProvider.pause();
@@ -127,7 +142,7 @@ class NameDetailScreen extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  name.explanation,
+                  widget.name.explanation,
                   style: Theme.of(
                     context,
                   ).textTheme.bodyLarge?.copyWith(height: 1.8),
@@ -142,7 +157,9 @@ class NameDetailScreen extends StatelessWidget {
                   Expanded(
                     child: OutlinedButton.icon(
                       onPressed: () {
-                        final prevId = name.id > 1 ? name.id - 1 : 99;
+                        final prevId = widget.name.id > 1
+                            ? widget.name.id - 1
+                            : 99;
                         final prevName = namesProvider.getNameById(prevId);
                         if (prevName != null) {
                           Navigator.pushReplacement(
@@ -161,7 +178,9 @@ class NameDetailScreen extends StatelessWidget {
                   Expanded(
                     child: OutlinedButton.icon(
                       onPressed: () {
-                        final nextId = name.id < 99 ? name.id + 1 : 1;
+                        final nextId = widget.name.id < 99
+                            ? widget.name.id + 1
+                            : 1;
                         final nextName = namesProvider.getNameById(nextId);
                         if (nextName != null) {
                           Navigator.pushReplacement(

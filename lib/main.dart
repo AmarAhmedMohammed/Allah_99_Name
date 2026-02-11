@@ -7,6 +7,7 @@ import 'utils/app_theme.dart';
 import 'screens/home_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -17,9 +18,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ThemeProvider()),
-        ChangeNotifierProvider(create: (_) => NamesProvider()),
-        ChangeNotifierProvider(create: (_) => AudioProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider(), lazy: false),
+        ChangeNotifierProvider(create: (_) => NamesProvider(), lazy: false),
+        ChangeNotifierProvider(create: (_) => AudioProvider(), lazy: false),
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {

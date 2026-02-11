@@ -24,6 +24,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
   @override
   void initState() {
     super.initState();
+    // Wait for names to load, then generate questions
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _generateQuestions();
     });
@@ -31,6 +32,13 @@ class _PracticeScreenState extends State<PracticeScreen> {
 
   void _generateQuestions() {
     final namesProvider = context.read<NamesProvider>();
+
+    // Wait for names to load if they're still loading
+    if (namesProvider.isLoading) {
+      Future.delayed(const Duration(milliseconds: 100), _generateQuestions);
+      return;
+    }
+
     final allNames = namesProvider.allNames;
 
     if (allNames.isEmpty) {
@@ -80,18 +88,6 @@ class _PracticeScreenState extends State<PracticeScreen> {
       _selectedAnswerId = selectedId;
       if (isCorrect) _score++;
     });
-
-    // Show feedback snackbar
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          isCorrect ? 'Correct! MashaAllah' : 'Incorrect',
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: isCorrect ? Colors.green : Colors.red,
-        duration: const Duration(seconds: 1),
-      ),
-    );
   }
 
   void _nextQuestion() {
@@ -111,7 +107,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
-        title: const Text('Practice Complete'),
+        title: const Text('Questions Complete'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -162,8 +158,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
 
     if (_questions.isEmpty) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Practice')),
-        body: const Center(child: Text('No names available to practice.')),
+        appBar: AppBar(title: const Text('Questions')),
+        body: const Center(child: Text('No names available for questions.')),
       );
     }
 
@@ -249,9 +245,9 @@ class _PracticeScreenState extends State<PracticeScreen> {
                   Color? cardColor;
                   if (_isAnswered) {
                     if (isCorrect) {
-                      cardColor = Colors.green.withOpacity(0.2);
+                      cardColor = Colors.green.withValues(alpha: 0.2);
                     } else if (isSelected) {
-                      cardColor = Colors.red.withOpacity(0.2);
+                      cardColor = Colors.red.withValues(alpha: 0.2);
                     }
                   }
 
