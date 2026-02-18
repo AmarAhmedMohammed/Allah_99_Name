@@ -16,15 +16,45 @@ class NamesListScreen extends StatefulWidget {
 }
 
 class _NamesListScreenState extends State<NamesListScreen> {
+  final TextEditingController _searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
     final namesProvider = context.read<NamesProvider>();
     final audioProvider = context.read<AudioProvider>();
 
+    // Reset search when entering screen
+    namesProvider.clearSearch();
+
     if (namesProvider.allNames.isNotEmpty) {
       audioProvider.setPlaylist(namesProvider.allNames);
     }
+
+    // Listen to search controller changes
+    _searchController.addListener(_onSearchChanged);
+  }
+
+  @override
+  void dispose() {
+    _searchController.removeListener(_onSearchChanged);
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  void _onSearchChanged() {
+    final namesProvider = context.read<NamesProvider>();
+    final text = _searchController.text;
+    namesProvider.searchNames(text);
+    // Rebuild to update the clear icon visibility
+    setState(() {});
+  }
+
+  void _clearSearch() {
+    _searchController.clear();
+    final namesProvider = context.read<NamesProvider>();
+    namesProvider.clearSearch();
+    setState(() {});
   }
 
   @override
@@ -41,9 +71,16 @@ class _NamesListScreenState extends State<NamesListScreen> {
                 Padding(
                   padding: const EdgeInsets.all(AppSizes.paddingMD),
                   child: TextField(
+                    controller: _searchController,
                     decoration: InputDecoration(
                       hintText: 'Search names...',
                       prefixIcon: const Icon(Icons.search),
+                      suffixIcon: _searchController.text.isNotEmpty
+                          ? IconButton(
+                              icon: const Icon(Icons.clear, size: 20),
+                              onPressed: _clearSearch,
+                            )
+                          : null,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(AppSizes.radiusLG),
                         borderSide: BorderSide(
@@ -55,9 +92,6 @@ class _NamesListScreenState extends State<NamesListScreen> {
                       filled: true,
                       fillColor: Theme.of(context).cardColor,
                     ),
-                    onChanged: (query) {
-                      namesProvider.searchNames(query);
-                    },
                   ),
                 ),
 
@@ -152,7 +186,7 @@ class _NameCard extends StatelessWidget {
               right: 0,
               child: Container(
                 height: 4,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     colors: [AppColors.gold, AppColors.goldLight],
                   ),
@@ -251,9 +285,6 @@ class _NameCard extends StatelessWidget {
                             if (provider.currentName?.id == name.id &&
                                 provider.isPlaying) {
                               await provider.pause();
-                            } else if (provider.currentName?.id == name.id &&
-                                !provider.isPlaying) {
-                              await provider.play();
                             } else {
                               await provider.playByIndex(index);
                             }

@@ -24,14 +24,14 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen>
       duration: const Duration(seconds: 2),
     )..repeat();
 
-    // Set the playlist and start playing
+    // Set the playlist and start playing from the very first name
     final namesProvider = context.read<NamesProvider>();
     final audioProvider = context.read<AudioProvider>();
 
     if (namesProvider.allNames.isNotEmpty) {
       audioProvider.setPlaylist(namesProvider.allNames);
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        audioProvider.play();
+        audioProvider.playFromStart();
       });
     }
   }

@@ -6,7 +6,6 @@ import '../models/allah_name.dart';
 
 class AudioProvider with ChangeNotifier {
   final AudioPlayer _audioPlayer = AudioPlayer();
-  final AudioPlayer _preloadPlayer = AudioPlayer(); // For preloading next track
   final FlutterTts _flutterTts = FlutterTts();
   Timer? _nextTrackTimer;
 
@@ -15,6 +14,7 @@ class AudioProvider with ChangeNotifier {
   bool _isPlaying = false;
   bool _isLoading = false;
   final bool _autoPlay = true;
+  bool _useTtsFallback = false;
 
   AllahName? get currentName =>
       _currentIndex < _playlist.length ? _playlist[_currentIndex] : null;
@@ -29,9 +29,10 @@ class AudioProvider with ChangeNotifier {
   }
 
   void _initializeAudioPlayer() {
-    // Set audio player to low latency mode for faster playback
+    // Configure once at startup for fastest subsequent playback
     _audioPlayer.setReleaseMode(ReleaseMode.stop);
     _audioPlayer.setPlayerMode(PlayerMode.lowLatency);
+    _audioPlayer.setVolume(1.0);
 
     _audioPlayer.onPlayerComplete.listen((_) {
       _onAudioComplete();
@@ -40,12 +41,15 @@ class AudioProvider with ChangeNotifier {
 
   void _initializeTts() async {
     await _flutterTts.setLanguage('ar-SA');
-    await _flutterTts.setSpeechRate(0.4); // Slower for learning
+    await _flutterTts.setSpeechRate(0.4);
     await _flutterTts.setVolume(1.0);
     await _flutterTts.setPitch(1.0);
 
     _flutterTts.setCompletionHandler(() {
-      _onAudioComplete();
+      if (_useTtsFallback) {
+        _useTtsFallback = false;
+        _onAudioComplete();
+      }
     });
   }
 
@@ -53,32 +57,6 @@ class AudioProvider with ChangeNotifier {
     _playlist = names;
     _currentIndex = 0;
     notifyListeners();
-
-    // Preload first audio for instant playback
-    if (_playlist.isNotEmpty) {
-      _preloadAudio(0);
-    }
-  }
-
-  /// Preload audio for instant playback
-  Future<void> _preloadAudio(int index) async {
-    if (index < 0 || index >= _playlist.length) return;
-
-    final name = _playlist[index];
-    if (!name.hasAudio) return;
-
-    try {
-      final url = name.audioUrl!;
-      if (url.startsWith('assets/')) {
-        final assetPath = url.replaceFirst('assets/', '');
-        await _preloadPlayer.setSource(AssetSource(assetPath));
-      } else {
-        await _preloadPlayer.setSource(UrlSource(url));
-      }
-      debugPrint('✅ Preloaded audio for index $index');
-    } catch (e) {
-      debugPrint('⚠️ Failed to preload audio: $e');
-    }
   }
 
   Future<void> playByIndex(int index) async {
@@ -87,23 +65,29 @@ class AudioProvider with ChangeNotifier {
 
     _currentIndex = index;
     _isLoading = true;
+    _useTtsFallback = false;
     notifyListeners();
+
+    // Stop any currently playing audio first
+    try {
+      await _audioPlayer.stop();
+      await _flutterTts.stop();
+    } catch (_) {}
 
     final name = _playlist[index];
 
     try {
-      // Try playing beautiful recitation from multiple sources
       bool audioPlayed = false;
 
       if (name.hasAudio) {
-        // Try primary audio URL with immediate playback
-        audioPlayed = await _tryPlayAudioFast(name.audioUrl!);
+        audioPlayed = await _tryPlayAudio(name.audioUrl!);
 
         // If primary fails, try alternative URLs
         if (!audioPlayed) {
           final alternativeUrls = name.getAlternativeAudioUrls();
           for (final url in alternativeUrls) {
-            audioPlayed = await _tryPlayAudioFast(url);
+            if (url == name.audioUrl) continue; // Skip already tried
+            audioPlayed = await _tryPlayAudio(url);
             if (audioPlayed) break;
           }
         }
@@ -111,17 +95,13 @@ class AudioProvider with ChangeNotifier {
 
       // Fallback to Text-to-Speech if all audio sources fail
       if (!audioPlayed) {
+        _useTtsFallback = true;
         await _flutterTts.speak(name.arabic);
         _isPlaying = true;
       }
-
-      // Preload next track for instant playback
-      if (_currentIndex < _playlist.length - 1) {
-        _preloadAudio(_currentIndex + 1);
-      }
     } catch (e) {
       debugPrint('Error playing audio: $e');
-      // Final fallback to TTS
+      _useTtsFallback = true;
       await _flutterTts.speak(name.arabic);
       _isPlaying = true;
     } finally {
@@ -130,31 +110,21 @@ class AudioProvider with ChangeNotifier {
     }
   }
 
-  /// Try to play audio with optimized fast playback
-  Future<bool> _tryPlayAudioFast(String url) async {
+  /// Play audio as fast as possible - minimal overhead
+  Future<bool> _tryPlayAudio(String url) async {
     try {
-      debugPrint('🎵 Fast play: $url');
-
-      // Check if it's a local asset or remote URL
       if (url.startsWith('assets/')) {
-        // Play from local asset with low latency
         final assetPath = url.replaceFirst('assets/', '');
-        debugPrint('📁 Loading local asset: $assetPath');
-
-        // Set source and play immediately
+        // Play directly - player is already configured at init
         await _audioPlayer.play(AssetSource(assetPath));
       } else {
-        // Play from remote URL
-        debugPrint('🌐 Loading remote URL: $url');
         await _audioPlayer.play(UrlSource(url));
       }
 
       _isPlaying = true;
-      debugPrint('✅ Audio playing successfully');
       return true;
     } catch (e) {
-      debugPrint('❌ Failed to play audio from: $url');
-      debugPrint('❌ Error: $e');
+      debugPrint('❌ Failed to play: $url - $e');
       return false;
     }
   }
@@ -164,11 +134,18 @@ class AudioProvider with ChangeNotifier {
     await playByIndex(_currentIndex);
   }
 
+  /// Play all names from the very beginning (index 0)
+  Future<void> playFromStart() async {
+    if (_playlist.isEmpty) return;
+    await playByIndex(0);
+  }
+
   Future<void> pause() async {
     _nextTrackTimer?.cancel();
     await _audioPlayer.pause();
     await _flutterTts.stop();
     _isPlaying = false;
+    _useTtsFallback = false;
     notifyListeners();
   }
 
@@ -177,6 +154,7 @@ class AudioProvider with ChangeNotifier {
     await _audioPlayer.stop();
     await _flutterTts.stop();
     _isPlaying = false;
+    _useTtsFallback = false;
     notifyListeners();
   }
 
@@ -184,7 +162,6 @@ class AudioProvider with ChangeNotifier {
     if (_currentIndex < _playlist.length - 1) {
       await playByIndex(_currentIndex + 1);
     } else {
-      // Loop back to start
       await playByIndex(0);
     }
   }
@@ -193,7 +170,6 @@ class AudioProvider with ChangeNotifier {
     if (_currentIndex > 0) {
       await playByIndex(_currentIndex - 1);
     } else {
-      // Go to last
       await playByIndex(_playlist.length - 1);
     }
   }
@@ -208,11 +184,13 @@ class AudioProvider with ChangeNotifier {
 
   void _onAudioComplete() {
     _isPlaying = false;
+    _useTtsFallback = false;
     notifyListeners();
 
     if (_autoPlay && _currentIndex < _playlist.length - 1) {
       _nextTrackTimer?.cancel();
-      _nextTrackTimer = Timer(const Duration(seconds: 3), () {
+      // Reduced delay for smoother continuous playback
+      _nextTrackTimer = Timer(const Duration(milliseconds: 200), () {
         if (_autoPlay) {
           playByIndex(_currentIndex + 1);
         }
@@ -224,7 +202,6 @@ class AudioProvider with ChangeNotifier {
   void dispose() {
     _nextTrackTimer?.cancel();
     _audioPlayer.dispose();
-    _preloadPlayer.dispose();
     _flutterTts.stop();
     super.dispose();
   }
